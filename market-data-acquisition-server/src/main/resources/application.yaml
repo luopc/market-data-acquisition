@@ -1,0 +1,21 @@
+server:
+  port: 0
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: mds
+    version: '@project.version@'
+  profiles:
+    active: '@profiles.active@'
+    include: web,nacos,redis,pg,amq
+
+mybatis-plus:
+  mapper-locations: classpath*:config/mappers/*.xml
+  typeAliasesPackage: com.luopc.platform.web.**.entity
+  global-config:
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      id-type: AUTO

@@ -1,0 +1,59 @@
+{
+  "success": "1",
+  "result": {
+    "SEK": {
+      "curno": "SEK",
+      "curnm": "瑞典克朗",
+      "BOC": {
+        "bankno": "BOC",
+        "banknm": "中国银行",
+        "se_sell": "67.2100",
+        "se_buy": "66.6700",
+        "cn_sell": "67.5300",
+        "cn_buy": "64.6100",
+        "middle": "67.2400",
+        "upddate": "2023-06-18 00:00:05"
+      },
+      "CCB": {
+        "bankno": "CCB",
+        "banknm": "建设银行",
+        "se_sell": "67.2600",
+        "se_buy": "66.7600",
+        "cn_sell": "67.2600",
+        "cn_buy": "64.8500",
+        "middle": "66.9900",
+        "upddate": "2023-06-18 00:00:03"
+      },
+      "ICBC": {
+        "bankno": "ICBC",
+        "banknm": "工商银行",
+        "se_sell": "67.1500",
+        "se_buy": "66.6900",
+        "cn_sell": "67.1500",
+        "cn_buy": "64.7800",
+        "middle": "0.0000",
+        "upddate": "2023-06-17 04:23:32"
+      },
+      "ABC": {
+        "bankno": "ABC",
+        "banknm": "农业银行",
+        "se_sell": "67.1980",
+        "se_buy": "66.6620",
+        "cn_sell": "0.0000",
+        "cn_buy": "64.5210",
+        "middle": "0.0000",
+        "upddate": "2023-06-18 00:08:18"
+      },
+      "CEB": {
+        "bankno": "CEB",
+        "banknm": "光大银行",
+        "se_sell": "66.3430",
+        "se_buy": "66.8758",
+        "cn_sell": "64.2115",
+        "cn_buy": "66.8758",
+        "middle": "0.0000",
+        "upddate": "2023-04-20 18:40:00"
+      }
+    }
+  }
+}

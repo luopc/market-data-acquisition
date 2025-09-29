@@ -1,0 +1,11 @@
+{
+  "success": "1",
+  "result": {
+    "status": "ALREADY",
+    "scur": "USD",
+    "tcur": "CNY",
+    "ratenm": "美元/人民币",
+    "rate": "7.2135",
+    "update": "2023-11-18 03:00:01"
+  }
+}

@@ -1,0 +1,167 @@
+package com.luopc.platform.web.mds.jobs.common;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author by Robin
+ * @className CountryMapCurrency
+ * @date 2024/1/6 0006 23:21
+ */
+public class CountryMapCurrency {
+
+    public static Map<String, String> getCountryAndCcyMapping() {
+        Map<String, String> countryMap = new HashMap<>();
+        countryMap.put("泰国", "THB");
+        countryMap.put("巴西", "BRL");
+        countryMap.put("斯威士兰", "SZL");
+        countryMap.put("赞比亚", "ZMW");
+        countryMap.put("文莱", "BND");
+        countryMap.put("委内瑞拉", "VEF");
+        countryMap.put("尼日利亚", "NGN");
+        countryMap.put("约旦", "JOD");
+        countryMap.put("新西兰", "NZD");
+        countryMap.put("柬埔寨", "KHR");
+        countryMap.put("莫桑比克", "MZN");
+        countryMap.put("布隆迪", "BIF");
+        countryMap.put("巴拉圭", "PYG");
+        countryMap.put("伊拉克", "IQD");
+        countryMap.put("加纳", "GHS");
+        countryMap.put("莱索托", "LSL");
+        countryMap.put("挪威", "NOK");
+        countryMap.put("越南", "VND");
+        countryMap.put("阿根廷", "ARS");
+        countryMap.put("纳米比亚", "NAD");
+        countryMap.put("摩尔多瓦", "MDL");
+        countryMap.put("美国", "USD");
+        countryMap.put("波黑", "BAM");
+        countryMap.put("肯尼亚", "KES");
+        countryMap.put("卡塔尔", "QAR");
+        countryMap.put("乌兹别克斯坦", "UZS");
+        countryMap.put("韩国", "KRW");
+        countryMap.put("尼加拉瓜", "NIO");
+        countryMap.put("巴林", "BHD");
+        countryMap.put("哥伦比亚", "COP");
+        countryMap.put("吉尔吉斯斯坦", "KGS");
+        countryMap.put("埃塞俄比亚", "ETB");
+        countryMap.put("老挝", "LAK");
+        countryMap.put("印度", "INR");
+        countryMap.put("英国", "GBP");
+        countryMap.put("塞舌尔", "SCR");
+        countryMap.put("非洲金融共同体", "XOF");
+        countryMap.put("毛里塔尼亚", "MRO");
+        countryMap.put("瑞士", "CHF");
+        countryMap.put("伊朗", "IRR");
+        countryMap.put("马尔代夫", "MVR");
+        countryMap.put("白俄罗斯", "BYR");
+        countryMap.put("科摩罗", "KMF");
+        countryMap.put("土耳其", "TRY");
+        countryMap.put("苏丹", "SDG");
+        countryMap.put("阿尔及利亚", "DZD");
+        countryMap.put("多米尼加", "DOP");
+        countryMap.put("圭亚那", "GYD");
+        countryMap.put("埃及", "EGP");
+        countryMap.put("利比亚", "LYD");
+        countryMap.put("巴巴多斯", "BBD");
+        countryMap.put("中国", "CNY");
+        countryMap.put("澳大利亚", "AUD");
+        countryMap.put("印度尼西亚", "IDR");
+        countryMap.put("蒙古", "MNT");
+        countryMap.put("马其顿", "MKD");
+        countryMap.put("佛得角", "CVE");
+        countryMap.put("格鲁吉亚", "GEL");
+        countryMap.put("坦桑尼亚", "TZS");
+        countryMap.put("台湾", "TWD");
+        countryMap.put("毛里求斯", "MUR");
+        countryMap.put("丹麦", "DKK");
+        countryMap.put("塞尔维亚", "RSD");
+        countryMap.put("阿曼", "OMR");
+        countryMap.put("巴基斯坦", "PKR");
+        countryMap.put("海地", "HTG");
+        countryMap.put("欧盟", "EUR");
+        countryMap.put("欧元区", "EUR");
+        countryMap.put("洪都拉斯", "HNL");
+        countryMap.put("古巴", "CUP");
+        countryMap.put("澳门", "MOP");
+        countryMap.put("萨尔瓦多", "SVC");
+        countryMap.put("黎巴嫩", "LBP");
+        countryMap.put("哥斯达黎加", "CRC");
+        countryMap.put("尼泊尔", "NPR");
+        countryMap.put("罗马尼亚", "RON");
+        countryMap.put("卢旺达", "RWF");
+        countryMap.put("香港", "HKD");
+        countryMap.put("沙特阿拉伯", "SAR");
+        countryMap.put("秘鲁", "PEN");
+        countryMap.put("几内亚", "GNF");
+        countryMap.put("厄瓜多尔", "ECS");
+        countryMap.put("玻利维亚", "BOB");
+        countryMap.put("巴哈马元", "BSD");
+        countryMap.put("安哥拉", "AOA");
+        countryMap.put("以色列", "ILS");
+        countryMap.put("阿联酋", "AED");
+        countryMap.put("斐济", "FJD");
+        countryMap.put("墨西哥", "MXV");
+        countryMap.put("危地马拉", "GTQ");
+        countryMap.put("亚美尼亚", "AMD");
+        countryMap.put("保加利亚", "BGN");
+        countryMap.put("匈牙利", "HUF");
+        countryMap.put("波兰", "PLN");
+        countryMap.put("博茨瓦纳", "BWP");
+        countryMap.put("不丹", "BTN");
+        countryMap.put("俄罗斯", "RUB");
+        countryMap.put("刚果", "CDF");
+        countryMap.put("斯里兰卡", "LKR");
+        countryMap.put("哈萨克斯坦", "KZT");
+        countryMap.put("塞拉利昂", "SLL");
+        countryMap.put("阿塞拜疆", "AZN");
+        countryMap.put("瑞典", "SEK");
+        countryMap.put("摩洛哥", "MAD");
+        countryMap.put("缅甸", "MMK");
+        countryMap.put("特立尼达多巴哥", "TTD");
+        countryMap.put("冰岛", "ISK");
+        countryMap.put("乌克兰", "UAH");
+        countryMap.put("乌拉圭", "UYU");
+        countryMap.put("突尼斯", "TND");
+        countryMap.put("智利", "CLP");
+        countryMap.put("马拉维", "MWK");
+        countryMap.put("塔吉克斯坦", "TJS");
+        countryMap.put("乌干达", "UGX");
+        countryMap.put("巴布亚新几内亚", "PGK");
+        countryMap.put("加拿大", "CAD");
+        countryMap.put("日本", "JPY");
+        countryMap.put("伯利兹", "BZD");
+        countryMap.put("南非", "ZAR");
+        countryMap.put("圣多美和普林西比", "STD");
+        countryMap.put("马达加斯加", "MGA");
+        countryMap.put("冈比亚", "GMD");
+        countryMap.put("马来西亚", "MYR");
+        countryMap.put("新加坡", "SGD");
+        countryMap.put("津巴布韦", "ZWL");
+        countryMap.put("科威特", "KWD");
+        countryMap.put("孟加拉国", "BDT");
+        countryMap.put("菲律宾", "PHP");
+        countryMap.put("牙买加", "JMD");
+        countryMap.put("喀麦隆", "XAF");
+        countryMap.put("中非共和国", "XAF");
+        countryMap.put("乍得", "XAF");
+        countryMap.put("赤道几内亚", "GNF");
+        countryMap.put("加蓬", "XAF");
+        countryMap.put("贝宁", "XOF");
+        countryMap.put("布基纳法索", "XOF");
+        countryMap.put("几内亚比绍", "XOF");
+        countryMap.put("马里", "MYR");
+        countryMap.put("尼日尔", "NGN");
+        countryMap.put("塞内加尔", "XOF");
+        countryMap.put("多哥", "XOF");
+        countryMap.put("利比里亚", "LRD");
+        countryMap.put("新喀里多尼亚", "CFP");
+        countryMap.put("阿尔巴尼亚", "ALL");
+        countryMap.put("捷克共和国", "CZK");
+        countryMap.put("苏里南", "SRD");
+        return countryMap;
+    }
+
+    public static String getCurrencyByCountryName(String countryName) {
+        return getCountryAndCcyMapping().get(countryName);
+    }
+}

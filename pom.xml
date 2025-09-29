@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.luopc.platform.market</groupId>
+    <artifactId>market-data-acquisition</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>data-acquisition-service</name>
+    <description>Data Acquisition Module</description>
+    <parent>
+        <groupId>com.luopc.platform.parent</groupId>
+        <artifactId>platform-boot-ai</artifactId>
+        <version>2.0.10-SNAPSHOT</version>
+    </parent>
+    <modules>
+        <module>market-data-acquisition-server</module>
+        <module>market-data-acquisition-api</module>
+    </modules>
+    <properties>
+        <java.version>21</java.version>
+        <jsoup.version>1.16.1</jsoup.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- 网页数据解析 -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>3.8.0</version>
+            </dependency>
+
+            <!-- java properties convert -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.luopc.platform.market</groupId>
+                <artifactId>market-data-acquisition-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-web</artifactId>
+                <version>1.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-amq</artifactId>
+                <version>1.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-data</artifactId>
+                <version>1.0.8-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-core</artifactId>
+                <version>1.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-redis</artifactId>
+                <version>1.0.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luopc.platform.boot</groupId>
+                <artifactId>common-test</artifactId>
+                <version>1.0.7</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <scm>
+        <url>https://gitee.com/luo_pc/market-data-acquisition</url>
+        <connection>scm:git:git@gitee.com:luo_pc/market-data-acquisition.git</connection>
+        <developerConnection>scm:git:git@gitee.com:luo_pc/market-data-acquisition.git</developerConnection>
+        <tag>v1.0.4</tag>
+    </scm>
+</project>
