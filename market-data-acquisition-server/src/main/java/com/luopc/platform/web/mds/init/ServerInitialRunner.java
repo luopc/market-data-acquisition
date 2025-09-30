@@ -2,7 +2,6 @@ package com.luopc.platform.web.mds.init;
 
 import cn.hutool.core.date.StopWatch;
 import com.luopc.platform.web.mds.jobs.*;
-import com.luopc.platform.web.mds.jobs.*;
 import jakarta.annotation.Resource;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -65,9 +64,12 @@ public class ServerInitialRunner implements ApplicationRunner {
         stopWatch.start("Retrieving InterestRates");
         interestRatesRetrievingTask.initialLoad();
         stopWatch.stop();
-        log.info("{}", stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
+        if (log.isDebugEnabled()) {
+            log.debug("{}", stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
+        } else {
+            log.info("Initializing Market Data Service completed, running on {} s", stopWatch.getTotalTimeSeconds());
+        }
     }
-
 
 
 }

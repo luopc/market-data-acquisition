@@ -6,14 +6,14 @@ spring:
     ansi:
       enabled: ALWAYS
   application:
-    name: mds
+    name: mdas
     version: '@project.version@'
   profiles:
     active: '@profiles.active@'
     include: web,nacos,redis,pg,amq
 
 mybatis-plus:
-  mapper-locations: classpath*:config/mappers/*.xml
+  mapper-locations: classpath*:mappers/*.xml
   typeAliasesPackage: com.luopc.platform.web.**.entity
   global-config:
     db-config:

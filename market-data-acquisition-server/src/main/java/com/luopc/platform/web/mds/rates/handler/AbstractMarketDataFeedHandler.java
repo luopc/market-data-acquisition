@@ -1,6 +1,7 @@
 package com.luopc.platform.web.mds.rates.handler;
 
 import cn.hutool.core.date.StopWatch;
+import com.luopc.platform.common.core.util.GeneratorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -25,23 +26,28 @@ public abstract class AbstractMarketDataFeedHandler<T> implements MarketDataFeed
 
     @Override
     public void onInitialLoad(Collection<T> initialList) {
-        StopWatch stopWatch = new StopWatch("initialLoad");
+        String uuid = GeneratorUtil.shortUuid();
+        StopWatch stopWatch = new StopWatch("initialLoad[" + uuid + "]");
         synchronized (processLock) {
-            stopWatch.start("process initialLoad message");
-            log.info("Start to process initialLoad message, size = {}", initialList.size());
+            stopWatch.start("process initialLoad message for job[" + uuid + "]");
+            log.info("Start to process initialLoad message for job[{}], size = {}", uuid, initialList.size());
             if (CollectionUtils.isNotEmpty(initialList)) {
                 processInitialLoadMsg(new ArrayList<>(initialList));
-                log.info("Completed to process initialLoad message, size = {}", initialList.size());
+                log.info("Completed to process initialLoad message for job[{}], size = {}", uuid, initialList.size());
             }
             stopWatch.stop();
-            stopWatch.start("process cache message");
+            stopWatch.start("process cache message for job[" + uuid + "]");
             if (CollectionUtils.isNotEmpty(messageCache)) {
                 processMessage(messageCache);
-                log.info("Completed to process cache message, size = {}", messageCache.size());
+                log.info("Completed to process cache message for job[{}], size = {}", uuid, messageCache.size());
             }
             initializing.compareAndSet(true, false);
             stopWatch.stop();
-            log.info("{}", stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
+            if (log.isDebugEnabled()) {
+                log.debug("{}", stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
+            } else {
+                log.info("Job[{}] has been initialized, running time = {} ms", uuid, stopWatch.getTotalTimeMillis());
+            }
         }
     }
 

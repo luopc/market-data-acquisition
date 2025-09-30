@@ -40,7 +40,8 @@ if [ "$BUILD_TYPE" = "release" ]; then
   fi
 
   # 更新依赖版本
-  mvn versions:use-latest-releases -Dincludes=com.luopc.platform.parent -DgenerateBackupPoms=false -DallowSnapshots=false
+  mvn versions:use-latest-releases -Dincludes=com.luopc.platform.parent* -DgenerateBackupPoms=false -DallowSnapshots=false
+  mvn versions:use-latest-releases -Dincludes=com.luopc.platform.boot* -DgenerateBackupPoms=false -DallowSnapshots=false
 
   # 检测版本变更
   echo -e "${YELLOW}Detecting version changes${NC}"
@@ -64,7 +65,7 @@ if [ "$BUILD_TYPE" = "release" ]; then
     echo -e "${YELLOW}No changes detected, skipping commit${NC}"
   fi
 
-  VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec | awk -v FS="-" '{print $1}')
+  VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.5.1:exec | awk -v FS="-" '{print $1}')
 
   # 执行发布
   echo -e "${GREEN}Starting release build${NC}"
