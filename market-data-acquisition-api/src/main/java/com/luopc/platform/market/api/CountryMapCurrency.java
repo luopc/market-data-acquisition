@@ -145,6 +145,7 @@ public class CountryMapCurrency {
     private static void addAdditionalMappings() {
         Map<String, String> additionalMappings = new HashMap<>();
         additionalMappings.put("尼日利亚", "NGN");
+        additionalMappings.put("尼日尔", "NGN");
         additionalMappings.put("卢旺达", "RWF");
         additionalMappings.put("几内亚", "GNF");
         additionalMappings.put("亚美尼亚", "AMD");

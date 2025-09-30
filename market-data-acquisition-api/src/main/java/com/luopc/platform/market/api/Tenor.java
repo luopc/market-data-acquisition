@@ -69,15 +69,11 @@ public enum Tenor {
 
     public Integer getDays() {
         LocalDate today = LocalDate.now();
-        switch (timeUnit) {
-            case WEEKS:
-                return (int) today.until(today.plusWeeks(unit), ChronoUnit.DAYS);
-            case MONTHS:
-                return (int) today.until(today.plusMonths(unit), ChronoUnit.DAYS);
-            case YEARS:
-                return (int) today.until(today.plusYears(unit), ChronoUnit.DAYS);
-            default:
-                return unit;
-        }
+        return switch (timeUnit) {
+            case WEEKS -> (int) today.until(today.plusWeeks(unit), ChronoUnit.DAYS);
+            case MONTHS -> (int) today.until(today.plusMonths(unit), ChronoUnit.DAYS);
+            case YEARS -> (int) today.until(today.plusYears(unit), ChronoUnit.DAYS);
+            default -> unit;
+        };
     }
 }
