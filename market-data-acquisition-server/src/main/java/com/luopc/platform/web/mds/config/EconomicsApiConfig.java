@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(value = "api")
-@PropertySource("classpath:api/economics-api.properties")
+@PropertySource("classpath:env/${spring.profiles.active:dev}/economics-api.properties")
 @Configuration
 //@NacosPropertySource(dataId = "economics-api.properties", autoRefreshed = true)
 public class EconomicsApiConfig {

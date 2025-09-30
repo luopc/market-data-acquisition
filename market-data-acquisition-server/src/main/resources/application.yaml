@@ -6,7 +6,7 @@ spring:
     ansi:
       enabled: ALWAYS
   application:
-    name: mdas
+    name: market-data-service
     version: '@project.version@'
   profiles:
     active: '@profiles.active@'

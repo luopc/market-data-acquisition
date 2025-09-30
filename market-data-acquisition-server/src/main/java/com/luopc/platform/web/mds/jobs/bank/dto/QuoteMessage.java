@@ -3,7 +3,7 @@ package com.luopc.platform.web.mds.jobs.bank.dto;
 import cn.hutool.core.bean.BeanUtil;
 import com.luopc.platform.market.api.ExecutingBankEnum;
 import com.luopc.platform.market.tools.RateCalculator;
-import com.luopc.platform.web.mds.jobs.common.response.ResponseMessage;
+import com.luopc.platform.web.mds.jobs.common.response.ResponseMsg;
 import com.luopc.platform.web.mds.rates.domain.dto.BankQuotation;
 import lombok.Data;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author Robin
  */
 @Data
-public class QuoteMessage implements ResponseMessage {
+public class QuoteMessage implements ResponseMsg {
 
     private String success;
     private String baseCcy;

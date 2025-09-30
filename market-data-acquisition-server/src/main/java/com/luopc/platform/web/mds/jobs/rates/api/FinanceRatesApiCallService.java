@@ -77,14 +77,18 @@ public class FinanceRatesApiCallService extends NowApiCallService {
     }
 
     public FinanceRateMsg retrieveFinanceRate(String ccy1, String ccy2) {
-        String url = getNowApiFinanceRate(ccy1, ccy2);
-        log.info("CcyPairRate Request url: {}", url);
         if (isNotDev()) {
-            String result = getData(url);
-            return JSON.parseObject(result, FinanceRateMsg.class);
+            return retrieveFinanceRateWithoutFilter(ccy1, ccy2);
         } else {
             return new FinanceRateMsg();
         }
+    }
+
+    public FinanceRateMsg retrieveFinanceRateWithoutFilter(String ccy1, String ccy2) {
+        String url = getNowApiFinanceRate(ccy1, ccy2);
+        log.info("CcyPairRate Request url: {}", url);
+        String result = getData(url);
+        return JSON.parseObject(result, FinanceRateMsg.class);
     }
 
     /**

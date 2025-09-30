@@ -49,7 +49,7 @@ public class QuoteControllerTest {
         List<QuoteVO> quoteVOS = new ArrayList<>();
         quoteVOS.add(new QuoteVO("BOC", "中国银行", "HKD", "CNY", 0.9196, 0.9161, LocalDateTime.now()));
         quoteVOS.add(new QuoteVO("AOC", "中国银行", "USD", "CNY", 0.9196, 0.9161, LocalDateTime.now()));
-        when(quoteService.queryBankQuote(any())).thenReturn(ResponseEntity.ok(quoteVOS));
+        when(quoteService.queryBankQuote(any())).thenReturn(quoteVOS);
 
         try {
             String requestBody = "{\n" +

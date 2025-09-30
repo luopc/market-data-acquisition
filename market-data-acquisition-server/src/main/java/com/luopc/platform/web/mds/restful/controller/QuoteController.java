@@ -4,15 +4,18 @@ package com.luopc.platform.web.mds.restful.controller;
 import com.luopc.platform.web.mds.restful.domain.from.QuoteQueryForm;
 import com.luopc.platform.web.mds.restful.domain.vo.QuoteVO;
 import com.luopc.platform.web.mds.restful.service.QuoteService;
+import com.luopc.platform.web.result.ResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,17 +26,18 @@ import java.util.List;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Tag(name = "QuoteController", description = "报价管理")
+@RequestMapping(value = "/api/quote", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "QuoteController", description = "从缓存内的Bank报价数据")
 public class QuoteController {
 
     @Resource
     private QuoteService quoteService;
 
-    @PostMapping(value = "quote/bank/query")
+    @PostMapping(value = "/bank/query")
     @Operation(summary = "报价-银行报价查询", description = "Author @Robin")
-    public ResponseEntity<List<QuoteVO>> queryQuote(@Valid @RequestBody QuoteQueryForm queryForm) {
+    public ResponseMessage<List<QuoteVO>> queryQuote(@Valid @RequestBody QuoteQueryForm queryForm) {
         log.info("Receive request from frontend, {}", queryForm);
-        return quoteService.queryBankQuote(queryForm);
+        return ResponseMessage.success(quoteService.queryBankQuote(queryForm));
     }
 
 }

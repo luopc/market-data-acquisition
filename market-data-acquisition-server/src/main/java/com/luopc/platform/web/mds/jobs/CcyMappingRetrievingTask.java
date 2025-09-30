@@ -2,7 +2,7 @@ package com.luopc.platform.web.mds.jobs;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Lists;
-import com.luopc.platform.web.mds.jobs.common.CountryMapCurrency;
+import com.luopc.platform.market.api.CountryMapCurrency;
 import com.luopc.platform.web.mds.jobs.mapping.dto.CurrencyMapping;
 import com.luopc.platform.web.mds.jobs.mapping.service.CcyMappingRetrievingService;
 import com.luopc.platform.web.mds.rates.domain.entity.CurrencyMappingDO;

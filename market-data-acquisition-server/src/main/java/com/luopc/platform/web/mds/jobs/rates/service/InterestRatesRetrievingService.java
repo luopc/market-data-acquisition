@@ -1,9 +1,10 @@
 package com.luopc.platform.web.mds.jobs.rates.service;
 
+import com.luopc.platform.market.tools.CountryCurrencyUtil;
 import com.luopc.platform.web.mds.config.EconomicsApiConfig;
 import com.luopc.platform.web.mds.convertors.MapStructConvertor;
 import com.luopc.platform.web.mds.jobs.rates.dto.interest.InterestRate;
-import com.luopc.platform.web.mds.jobs.common.CountryMapCurrency;
+import com.luopc.platform.market.api.CountryMapCurrency;
 import com.luopc.platform.web.mds.rates.domain.entity.CcyInterestDO;
 import jakarta.annotation.Resource;
 import lombok.NoArgsConstructor;
@@ -90,7 +91,7 @@ public class InterestRatesRetrievingService {
                     interestRate.setUpdateDate(updateTime.text());
                     interestRate.setUnit(unit.text());
 
-                    String ccyCode = CountryMapCurrency.getCurrencyByCountryName(countryName);
+                    String ccyCode = CountryCurrencyUtil.getCurrencyByCountry(countryName);
                     if (Objects.nonNull(ccyCode)) {
                         log.debug("Get ccyCode {} from Cache for {}", ccyCode, countryName);
                         interestRate.setCcy(ccyCode);

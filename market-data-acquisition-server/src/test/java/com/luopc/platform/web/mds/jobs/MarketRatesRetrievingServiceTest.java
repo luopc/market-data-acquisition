@@ -1,11 +1,13 @@
 package com.luopc.platform.web.mds.jobs;
 
 import com.alibaba.fastjson2.JSON;
+import com.luopc.platform.market.api.SpotRate;
 import com.luopc.platform.web.mds.config.EconomicsApiConfig;
 import com.luopc.platform.web.mds.jobs.rates.dto.market.MarketRatesMsg;
 import com.luopc.platform.web.mds.jobs.rates.dto.rates.ExchangeRatesMsg;
 import com.luopc.platform.web.mds.jobs.rates.service.CurrencyRateRetrievingService;
 import com.luopc.platform.web.mds.jobs.rates.service.MarketRatesRetrievingService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +16,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.mockito.Mockito.when;
 
+@Slf4j
 class MarketRatesRetrievingServiceTest {
     @Mock
     EconomicsApiConfig economicsApiConfig;
@@ -36,7 +41,7 @@ class MarketRatesRetrievingServiceTest {
     void testRetrieveMarketRates() {
         String marketRatesResult = marketRatesRetrievingService.retrieveMarketRates();
         MarketRatesMsg marketRatesMsg = JSON.parseObject(marketRatesResult, MarketRatesMsg.class);
-        System.out.printf("marketRatesMsg: %s\n",marketRatesMsg);
+        log.info("marketRatesMsg: {}",marketRatesMsg);
         Assertions.assertTrue(marketRatesMsg.isSuccess());
     }
 
@@ -44,8 +49,9 @@ class MarketRatesRetrievingServiceTest {
     void testRetrieveExchangeRates() {
         String exchangeRatesResult = currencyRateRetrievingService.retrieveExchangeRates();
         ExchangeRatesMsg exchangeRatesMsg = JSON.parseObject(exchangeRatesResult, ExchangeRatesMsg.class);
-        System.out.println(exchangeRatesMsg);
+        List<SpotRate> chinaSpotRateList = marketRatesRetrievingService.extractedSpotRates(exchangeRatesMsg);
         Assertions.assertTrue(CollectionUtils.isNotEmpty(exchangeRatesMsg.getRecords()));
+        Assertions.assertTrue(CollectionUtils.isNotEmpty(chinaSpotRateList));
     }
 
 }

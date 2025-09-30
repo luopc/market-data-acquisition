@@ -66,7 +66,7 @@ public class BankQuoteRetrievingTask {
             exchangeQuotationList.addAll(bankQuoteRetrievingService.getQuoteFromApi(ccyPair.getCcy1()));
             exchangeQuotationList.addAll(bankQuoteRetrievingService.getQuoteFromApi(ccyPair.getCcy2()));
         }
-        //exchangeQuotationList.addAll(iBankDataApiCallService.getExchangeQuotationFromAPI());
+//        exchangeQuotationList.addAll(iBankDataApiCallService.getExchangeQuotationFromAPI());
         bankQuotationFeedHandler.onResponse(exchangeQuotationList);
     }
 

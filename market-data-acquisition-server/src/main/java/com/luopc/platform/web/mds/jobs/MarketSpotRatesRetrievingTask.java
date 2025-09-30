@@ -48,8 +48,7 @@ public class MarketSpotRatesRetrievingTask {
     private BankQuotationFeedHandler bankQuotationFeedHandler;
     @Resource
     private MarketRatesRetrievingService marketRatesRetrievingService;
-    @Resource
-    private CurrencyRateRetrievingService currencyRateRetrievingService;
+
 
     public void initialLoad() {
         List<SpotRateDO> spotRateListFromDataBase = spotRateMapper.initialLoad();
@@ -71,41 +70,7 @@ public class MarketSpotRatesRetrievingTask {
     @Scheduled(initialDelay = 30 * 1000, fixedDelay = 60 * 60 * 1000)
     public void updateSpotRates() {
         log.info("[RetrievingMarketSpotRatesJob][定时任务每1小时执行：{}]", LocalDateTime.now());
-        List<SpotRate> marketSpotRateList = Lists.newArrayList();
-
-        //1. Global Currency information: https://www.xe.com/
-        String marketRatesResult = marketRatesRetrievingService.retrieveMarketRates();
-        MarketRatesMsg marketRatesMsg = JSON.parseObject(marketRatesResult, MarketRatesMsg.class);
-        if (!marketRatesMsg.isSuccess()) {
-            log.error("unable to RetrievingMarketRates from API, please take a look.");
-            marketRatesMsg = marketRatesRetrievingService.getLocalData();
-        }
-        final Date lastUpdateTime = new Date(marketRatesMsg.getTimestamp());
-        marketRatesMsg.getRates().forEach((ccy, rate) -> {
-            marketSpotRateList.add(new SpotRate("USD", ccy.substring(0, 3), rate, lastUpdateTime));
-        });
-
-        //2. 货币汇率数据： https://zh.tradingeconomics.com/currencies
-        List<SpotRate> spotRateList = currencyRateRetrievingService.getCurrencyRates();
-        marketSpotRateList.addAll(spotRateList);
-
-        //3.国家外汇数据: https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/sdds-exch-rate.json
-        String exchangeRatesResult = currencyRateRetrievingService.retrieveExchangeRates();
-        ExchangeRatesMsg exchangeRatesMsg = JSON.parseObject(exchangeRatesResult, ExchangeRatesMsg.class);
-        exchangeRatesMsg.getRecords().forEach(record -> {
-            if (record.getForeignCnName().length() == 6) {
-                CcyPair ccyPair = CcyPair.getInstance(record.getForeignCnName());
-                String price = record.getPrice();
-                BigDecimal rate = new BigDecimal(price);
-                if (record.getVrtName().contains("JPY")) {
-                    rate = RateCalculator.div(rate, BigDecimal.valueOf(100));
-                }
-                marketSpotRateList.add(new SpotRate(ccyPair, rate, LocalDateTime.now()));
-            }
-
-        });
-
-        log.info("MarketSpotRateList from API, size = {}", marketSpotRateList.size());
+        List<SpotRate> marketSpotRateList = marketRatesRetrievingService.getAggregatedSpotRates();
         spotRatesFeedHandler.onResponse(marketSpotRateList);
         mockBankQuotation(marketSpotRateList);
     }

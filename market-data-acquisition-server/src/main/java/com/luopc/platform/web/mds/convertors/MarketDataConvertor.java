@@ -9,6 +9,7 @@ import com.luopc.platform.web.mds.rates.domain.dto.QuoteByTenor;
 import com.luopc.platform.web.mds.rates.domain.entity.SpotRateDO;
 import com.luopc.platform.web.mds.restful.domain.vo.MarketQuoteVO;
 import com.luopc.platform.web.mds.restful.domain.vo.QuoteVO;
+import com.luopc.platform.web.mds.restful.domain.vo.RateVO;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -86,6 +87,13 @@ public class MarketDataConvertor {
             spotRateDO.setSnapshotDate(date);
         }
         return spotRateDO;
+    }
+
+    public static RateVO spotRateToVo(SpotRate spotRate) {
+        RateVO rate = new RateVO(spotRate.getCcyPair().getCcy1().getCcyCode(), spotRate.getCcyPair().getCcy2().getCcyCode());
+        rate.setRate(spotRate.getRateDoubleValue());
+        rate.setLastUpdateTime(spotRate.getLastUpdateTime());
+        return rate;
     }
 
     public static List<BankQuotation> convertSpotRateToBankQuote(SpotRate spotRate) {

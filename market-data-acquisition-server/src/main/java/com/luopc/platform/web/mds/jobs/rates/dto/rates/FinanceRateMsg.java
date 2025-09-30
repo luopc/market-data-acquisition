@@ -1,6 +1,6 @@
 package com.luopc.platform.web.mds.jobs.rates.dto.rates;
 
-import com.luopc.platform.web.mds.jobs.common.response.ResponseMessage;
+import com.luopc.platform.web.mds.jobs.common.response.ResponseMsg;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinanceRateMsg implements ResponseMessage {
+public class FinanceRateMsg implements ResponseMsg {
 
 
     private int success;

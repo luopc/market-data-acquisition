@@ -12,6 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Mockito版本号 -->
+        <mockito.version>5.7.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -142,6 +144,17 @@
                 </executions>
             </plugin>
 
+            <!-- 添加Mockito Agent配置以解决JDK未来版本的兼容性问题 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version> <!-- Use the latest version -->
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar"
+                    </argLine>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

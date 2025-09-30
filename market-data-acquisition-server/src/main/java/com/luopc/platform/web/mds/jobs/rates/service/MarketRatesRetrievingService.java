@@ -1,8 +1,13 @@
 package com.luopc.platform.web.mds.jobs.rates.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.google.common.collect.Lists;
+import com.luopc.platform.market.api.CcyPair;
+import com.luopc.platform.market.api.SpotRate;
+import com.luopc.platform.market.tools.RateCalculator;
 import com.luopc.platform.web.mds.config.EconomicsApiConfig;
 import com.luopc.platform.web.mds.jobs.rates.dto.market.MarketRatesMsg;
+import com.luopc.platform.web.mds.jobs.rates.dto.rates.ExchangeRatesMsg;
 import jakarta.annotation.Resource;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +24,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author by Robin
@@ -35,6 +45,60 @@ public class MarketRatesRetrievingService {
 
     @Resource
     protected EconomicsApiConfig economicsApiConfig;
+    @Resource
+    private CurrencyRateRetrievingService currencyRateRetrievingService;
+
+
+    public List<SpotRate> getAggregatedSpotRates() {
+        log.info("[RetrievingMarketSpotRatesJob][定时任务每1小时执行：{}]", LocalDateTime.now());
+        List<SpotRate> marketSpotRateList = Lists.newArrayList();
+
+        //1. Global Currency information: https://www.xe.com/
+        String marketRatesResult = retrieveMarketRates();
+        MarketRatesMsg marketRatesMsg = JSON.parseObject(marketRatesResult, MarketRatesMsg.class);
+        if (!marketRatesMsg.isSuccess()) {
+            log.error("unable to RetrievingMarketRates from API, please take a look.");
+            marketRatesMsg = getLocalData();
+        }
+        final Date lastUpdateTime = new Date(marketRatesMsg.getTimestamp());
+        marketRatesMsg.getRates().forEach((ccy, rate) -> {
+            marketSpotRateList.add(new SpotRate("USD", ccy.substring(0, 3), rate, lastUpdateTime));
+        });
+        log.info("MarketSpotRateList from API[www.xe.com], size = {}", marketSpotRateList.size());
+
+        //2. 货币汇率数据： https://zh.tradingeconomics.com/currencies
+        List<SpotRate> tradingSpotRateList = currencyRateRetrievingService.getCurrencyRates();
+        log.info("MarketSpotRateList from API[zh.tradingeconomics.com], size = {}", marketSpotRateList.size());
+        marketSpotRateList.addAll(tradingSpotRateList);
+
+        //3.国家外汇数据: https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/sdds-exch-rate.json
+        String exchangeRatesResult = currencyRateRetrievingService.retrieveExchangeRates();
+        ExchangeRatesMsg exchangeRatesMsg = JSON.parseObject(exchangeRatesResult, ExchangeRatesMsg.class);
+        marketSpotRateList.addAll(extractedSpotRates(exchangeRatesMsg));
+
+        log.info("MarketSpotRateList from all active APIs, size = {}", marketSpotRateList.size());
+        return marketSpotRateList;
+    }
+
+    public List<SpotRate> extractedSpotRates(ExchangeRatesMsg exchangeRatesMsg) {
+        log.info("ExchangeRatesMsg size = {}", exchangeRatesMsg.getRecords().size());
+        List<SpotRate> chinaSpotRateList = exchangeRatesMsg.getRecords().stream().map(record -> {
+            log.info("ExchangeRatesMsg.getExchangeRates(), record = {}", record);
+            if (record.getForeignCnName().length() == 7) {
+                CcyPair ccyPair = CcyPair.getInstance(record.getForeignCnName());
+                String price = record.getPrice();
+                BigDecimal rate = new BigDecimal(price);
+                if (record.getVrtName().contains("JPY")) {
+                    rate = RateCalculator.div(rate, BigDecimal.valueOf(100));
+                }
+                return new SpotRate(ccyPair, rate, LocalDateTime.now());
+            }
+            return null;
+        }).filter(Objects::nonNull).toList();
+        log.info("MarketSpotRateList from API[www.chinamoney.com.cn], size = {}", chinaSpotRateList.size());
+        return chinaSpotRateList;
+    }
+
 
     public String retrieveMarketRates() {
         String url = economicsApiConfig.getMarketRatesUrl();

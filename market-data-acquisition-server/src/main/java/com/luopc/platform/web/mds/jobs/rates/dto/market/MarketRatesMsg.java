@@ -1,6 +1,6 @@
 package com.luopc.platform.web.mds.jobs.rates.dto.market;
 
-import com.luopc.platform.web.mds.jobs.common.response.ResponseMessage;
+import com.luopc.platform.web.mds.jobs.common.response.ResponseMsg;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 @Data
 @NoArgsConstructor
-public class MarketRatesMsg implements ResponseMessage {
+public class MarketRatesMsg implements ResponseMsg {
 
     private Long timestamp;
     private Map<String, Double> rates;
